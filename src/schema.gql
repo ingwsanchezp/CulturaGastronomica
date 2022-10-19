@@ -1,0 +1,134 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RecetaEntity {
+  id: String!
+  nombre: String!
+  descripcion: String!
+  foto: String!
+  preparacion: String!
+  video: String!
+  culturagastronomica: CulturaGastronomicaEntity!
+}
+
+type PaisEntity {
+  nombre: String!
+  culturasgastronomicas: [CulturaGastronomicaEntity!]!
+}
+
+type CategoriaproductoEntity {
+  productos: [ProductoEntity!]!
+}
+
+type ProductoEntity {
+  id: String!
+  nombre: String!
+  descripcion: String!
+  culturaGastronomica: CulturaGastronomicaEntity!
+  categoriaProducto: CategoriaproductoEntity!
+}
+
+type CiudadEntity {
+  id: String!
+  nombre: String!
+  restaurantes: [RestauranteEntity!]!
+}
+
+type RestauranteEntity {
+  id: String!
+  nombre: String!
+  michelin: Float!
+  fechaMichelin: String!
+  ciudad: CiudadEntity!
+  culturagastronomica: CulturaGastronomicaEntity!
+}
+
+type CulturaGastronomicaEntity {
+  id: String!
+  nombre: String!
+  descripcion: String!
+  region: RegionEntity!
+  recetas: [RecetaEntity!]!
+  productos: [ProductoEntity!]!
+}
+
+type RegionEntity {
+  id: String!
+  nombre: String!
+}
+
+type Query {
+  findRegionPorCulturaId(id: String!): RegionEntity!
+  findCulturaPorRegionId(id: String!): CulturaGastronomicaEntity!
+  regiones: [RegionEntity!]!
+  region(id: String!): RegionEntity!
+  culturas: [CulturaGastronomicaEntity!]!
+  cultura(id: String!): CulturaGastronomicaEntity!
+  recetas: [RecetaEntity!]!
+  receta(id: String!): RecetaEntity!
+  paises: [PaisEntity!]!
+  pais(id: String!): PaisEntity!
+  productos: [ProductoEntity!]!
+  producto(id: String!): [ProductoEntity!]!
+  restaurantes: [RestauranteEntity!]!
+  restaurante(id: String!): RestauranteEntity!
+  findRestaurantesByCulturaId(id: String!): RestauranteEntity!
+  findRestauranteByCulturaIdRestauranteId(culturaId: String!, restauranteId: String!): RestauranteEntity!
+}
+
+type Mutation {
+  associateRegionaCulturaId(region: RegionDto!, id: String!): CulturaGastronomicaEntity!
+  deleteRegionIdCulturaId(culturaId: String!, regionId: String!): String!
+  createRegion(region: RegionDto!): RegionEntity!
+  updateRegion(id: String!, region: RegionDto!): RegionEntity!
+  deleteRegion(id: String!): String!
+  createCulturaGastronomica(cultura: CulturagastronomicaDto!): CulturaGastronomicaEntity!
+  updateCulturaGastronomica(id: String!, cultura: CulturagastronomicaDto!): CulturaGastronomicaEntity!
+  deleteCulturaGastronomica(id: String!): String!
+  createReceta(receta: RecetaDto!): RecetaEntity!
+  updateReceta(id: String!, pais: PaisDto!): PaisEntity!
+  deleteReceta(id: String!): String!
+  createPais(pais: PaisDto!): PaisEntity!
+  deletePais(id: String!): String!
+  createProducto(producto: ProductoDto!): ProductoEntity!
+  updateProducto(id: String!, producto: ProductoDto!): ProductoEntity!
+  deleteProducto(id: String!): String!
+  createRestaurante(museum: RestauranteDto!): RestauranteEntity!
+  updateRestaurante(id: String!, restaurante: RestauranteDto!): RestauranteEntity!
+  deleteRestaurante(id: String!): String!
+  addRestauranteCultura(culturaId: String!, restauranteId: String!): CulturaGastronomicaEntity!
+  deleteRestauranteToCultura(culturaId: String!, restauranteId: String!): String!
+}
+
+input RegionDto {
+  nombre: String!
+}
+
+input CulturagastronomicaDto {
+  nombre: String!
+  descripcion: String!
+}
+
+input RecetaDto {
+  nombre: String!
+  descripcion: String!
+  foto: String!
+  preparacion: String!
+  video: String!
+}
+
+input PaisDto {
+  nombre: String!
+}
+
+input ProductoDto {
+  nombre: String!
+  descripcion: String!
+}
+
+input RestauranteDto {
+  nombre: String!
+  michelin: Float!
+  fechaMichelin: String!
+}
