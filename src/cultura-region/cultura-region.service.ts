@@ -65,4 +65,13 @@ export class CulturaRegionService {
             throw new BusinessLogicException("La region id no ha sido encontrada", BusinessError.NOT_FOUND);    
         return await this.regionRepository.remove(cultura.region);
     }
+
+    async deleteRegionIdCulturaIdOff(culturaId: string, regionId: string){
+        const cultura: CulturaGastronomicaEntity = await this.culturaRepository.findOne({where: {id: culturaId}, relations: {region: true,},});
+        if (!cultura)
+            throw new BusinessLogicException("La cultura con id no ha sido encontrada", BusinessError.NOT_FOUND);
+        if (!cultura.region && cultura.region.id != regionId)
+            throw new BusinessLogicException("La region id no ha sido encontrada", BusinessError.NOT_FOUND);    
+        return await this.regionRepository.remove(cultura.region);
+    }
 }

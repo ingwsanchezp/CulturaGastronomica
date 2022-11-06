@@ -53,4 +53,12 @@ export class CulturagastronomicaService {
             throw new BusinessLogicException("La cultura gastronomica con el id no a sido encontrada", BusinessError.NOT_FOUND);
         await this.culturaRepository.remove(cultura);
     }
+
+    async deleteAll(){
+        await this.culturaRepository.clear();
+    }
+
+    async count(): Promise<number>{
+        return await this.culturaRepository.count();
+    }
 }

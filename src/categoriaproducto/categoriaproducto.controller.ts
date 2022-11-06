@@ -4,6 +4,7 @@ import { CategoriaproductoDto } from './categoriaproducto.dto';
 import { CategoriaproductoEntity } from '../categoriaproducto/categoriaproducto.entity';
 import {CategoriaproductoService}  from '../categoriaproducto/categoriaproducto.service';
 import { plainToInstance } from 'class-transformer';
+import { BusinessLogicException, BusinessError } from 'src/shared/errors/business-errors';
 
 
 @Controller('categoriaproducto')
@@ -22,6 +23,9 @@ export class CategoriaproductoController {
 
     @Post(':categoriaId')
     async create(@Body() CategoriaProductoDto: CategoriaproductoDto) {
+        if(parseInt(CategoriaProductoDto.id) === NaN){
+            throw new BusinessLogicException("La region no puede ser creada", BusinessError.BAD_REQUEST);
+        }
         const categoriaProducto: CategoriaproductoEntity = plainToInstance(CategoriaproductoEntity, CategoriaProductoDto);
         return this.categoriaProductoService.create(categoriaProducto);
     }

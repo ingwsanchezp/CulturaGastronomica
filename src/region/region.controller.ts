@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseGuards, U
 import { plainToInstance } from 'class-transformer';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { BusinessLogicException, BusinessError } from 'src/shared/errors/business-errors';
 import { Role } from 'src/usuario/role.enum';
 import { HasRoles } from 'src/usuario/roles.decorator';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
@@ -29,6 +30,9 @@ export class RegionController {
     @Post()
     @HasRoles(Role.Editor, Role.Admin, Role.EditorRegion)
     async create(@Body() regionDto: RegionDto){
+        if(parseInt(regionDto.id) === NaN){
+            throw new BusinessLogicException("La region no puede ser creada", BusinessError.BAD_REQUEST);
+        }
         const region: RegionEntity = plainToInstance(RegionEntity, regionDto);
         return await this.regionService.create(region);
     }
