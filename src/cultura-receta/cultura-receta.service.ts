@@ -4,7 +4,7 @@ import { CulturaGastronomicaEntity } from '../culturagastronomica/culturagastron
 import { Repository } from 'typeorm';
 import { RecetaEntity } from '../receta/receta.entity';
 import { BusinessLogicException, BusinessError } from '../shared/errors/business-errors';
-import { RegionEntity } from 'src/region/region.entity';
+
 
 @Injectable()
 export class CulturaRecetaService {
@@ -101,10 +101,10 @@ export class CulturaRecetaService {
         await this.culturaGastronomicaRepository.save(culturagastronomica)    
     }
 
-    async deleteOff(id: string){
+    /*async deleteOff(id: string){
         const region: RegionEntity = await this.regionRepository.findOne({where:{id}});
         if (!region)
             throw new BusinessLogicException("La region gastronomica con el id no a sido encontrada", BusinessError.NOT_FOUND);
         await this.regionRepository.remove(region);
-    }
+    }*/
 }
